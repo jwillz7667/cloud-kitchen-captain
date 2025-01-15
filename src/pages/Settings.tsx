@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Switch } from "@/components/ui/switch";
 import { 
   Settings as SettingsIcon, 
   Printer, 
@@ -79,12 +80,21 @@ const Settings = () => {
                       <Label htmlFor={setting.label} className="text-pos-text">
                         {setting.label}
                       </Label>
-                      <Input
-                        id={setting.label}
-                        type={setting.type}
-                        value={setting.value}
-                        className="bg-slate-700 border-slate-600 text-pos-text"
-                      />
+                      {setting.type === 'toggle' ? (
+                        <Switch
+                          id={setting.label}
+                          checked={setting.value as boolean}
+                          onCheckedChange={() => {}}
+                          className="bg-slate-700"
+                        />
+                      ) : (
+                        <Input
+                          id={setting.label}
+                          type={setting.type}
+                          value={setting.value as string}
+                          className="bg-slate-700 border-slate-600 text-pos-text"
+                        />
+                      )}
                     </div>
                   ))}
                 </div>
