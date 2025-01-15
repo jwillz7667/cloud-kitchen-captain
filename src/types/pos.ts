@@ -4,6 +4,8 @@ export interface MenuItem {
   price: number;
   category: string;
   description?: string;
+  image?: string;
+  available?: boolean;
 }
 
 export interface TableStatus {
@@ -22,6 +24,8 @@ export interface Order {
   total: number;
   createdAt: Date;
   updatedAt: Date;
+  customerName?: string;
+  specialInstructions?: string;
 }
 
 export interface OrderItem {
@@ -29,6 +33,7 @@ export interface OrderItem {
   quantity: number;
   notes?: string;
   price: number;
+  modifications?: string[];
 }
 
 export interface Staff {
@@ -36,4 +41,24 @@ export interface Staff {
   name: string;
   role: 'server' | 'kitchen' | 'manager' | 'admin';
   active: boolean;
+  email?: string;
+  phone?: string;
+  startDate?: Date;
+  schedule?: StaffSchedule[];
+}
+
+export interface StaffSchedule {
+  day: string;
+  startTime: string;
+  endTime: string;
+}
+
+export interface Payment {
+  id: string;
+  orderId: string;
+  amount: number;
+  method: 'cash' | 'credit' | 'debit' | 'mobile';
+  status: 'pending' | 'completed' | 'failed' | 'refunded';
+  timestamp: Date;
+  reference?: string;
 }
