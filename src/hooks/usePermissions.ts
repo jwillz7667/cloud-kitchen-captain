@@ -2,6 +2,7 @@ import { useUser } from '@/contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { toast } from '@/components/ui/use-toast';
+import { UserPermissions } from '@/types/users';
 
 export const usePermissions = (requiredPermission: keyof UserPermissions) => {
   const { permissions } = useUser();
