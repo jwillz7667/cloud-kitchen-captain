@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Utensils, Users, BarChart3, Package, CreditCard, Settings } from 'lucide-react';
+import { Card } from './ui/card';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -36,21 +37,27 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
       {/* Navigation Sidebar */}
       <nav className="fixed bottom-0 left-0 z-20 w-full bg-slate-800 p-4 md:top-0 md:h-full md:w-20">
-        <div className="flex justify-around md:flex-col md:space-y-8">
+        <div className="flex justify-around md:flex-col md:space-y-4">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
             return (
-              <Link
+              <Card
                 key={item.path}
-                to={item.path}
-                className={`flex flex-col items-center justify-center space-y-1 rounded-lg p-2 transition-colors hover:bg-slate-700 ${
-                  isActive ? 'text-pos-accent' : 'text-slate-300'
+                className={`w-full transition-colors hover:bg-slate-700 ${
+                  isActive ? 'bg-slate-700' : 'bg-slate-800'
                 }`}
               >
-                <Icon size={24} />
-                <span className="text-xs">{item.label}</span>
-              </Link>
+                <Link
+                  to={item.path}
+                  className={`flex flex-col items-center justify-center p-3 ${
+                    isActive ? 'text-pos-accent' : 'text-slate-300'
+                  }`}
+                >
+                  <Icon size={28} />
+                  <span className="mt-1 text-xs">{item.label}</span>
+                </Link>
+              </Card>
             );
           })}
         </div>
