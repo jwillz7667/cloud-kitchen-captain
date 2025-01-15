@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Utensils, Users, BarChart3, Package, CreditCard, Settings } from 'lucide-react';
+import { Home, Utensils, Users, BarChart3, Package, CreditCard, Settings, LogOut } from 'lucide-react';
 import { Card } from './ui/card';
+import { useUser } from '@/contexts/UserContext';
+import { Button } from './ui/button';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
+  const { user, logout } = useUser();
 
   const navItems = [
     { path: '/', icon: Home, label: 'Dashboard' },
@@ -23,14 +26,25 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold text-pos-accent">RestaurantPOS</h1>
           <div className="flex items-center space-x-4">
-            <button className="rounded-full bg-slate-700 p-2 hover:bg-slate-600">
-              <span className="sr-only">Notifications</span>
-              <div className="h-2 w-2 rounded-full bg-pos-accent"></div>
-            </button>
-            <button className="rounded-full bg-slate-700 p-2 hover:bg-slate-600">
-              <span className="sr-only">Profile</span>
-              <div className="h-6 w-6 rounded-full bg-slate-500"></div>
-            </button>
+            <div className="text-sm text-slate-300">
+              {user ? (
+                <span>
+                  {user.firstName} {user.lastName} ({user.role})
+                </span>
+              ) : (
+                'Guest'
+              )}
+            </div>
+            {user && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={logout}
+                className="hover:bg-slate-700"
+              >
+                <LogOut className="h-5 w-5" />
+              </Button>
+            )}
           </div>
         </div>
       </header>
